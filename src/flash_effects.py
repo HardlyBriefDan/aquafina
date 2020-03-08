@@ -1,6 +1,8 @@
-from color_generators import ColorGenerators
 import math
 import random
+
+from color_generators import ColorGenerators
+from grouping import Grouping
 
 class FlashEffects():
 
@@ -26,6 +28,16 @@ class FlashEffects():
         self.pixels.clear()
         self.pixels.show()
     
+    # just turns the pixels on
+    def full_strand_flash(self, color=None, random_color=True):
+        grouping = Grouping(self.pixels)
+        color_gens = ColorGenerators()
+        if color is None:
+            color = color_gens.randColorFromHues()
+        indexes = grouping.full_strand_flash()
+        for index in range(indexes):
+            self.pixels[index] = color
+
     def strandFlash(self, color, spacing = 0, timeOn = 100):
         for i in range(self.pixels.numPixels()):
             if(i % (spacing + 1) == 0):
@@ -73,9 +85,6 @@ class FlashEffects():
 
 
     def lighting(self, strikes=7, color=None):
-        
-
-
 
         startDelay = delay = 100
         # default purplish color

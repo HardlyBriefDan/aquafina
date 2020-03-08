@@ -1,7 +1,6 @@
 import random
 import math
 
-
 class ColorGenerators():
 
     HUES = {
@@ -13,13 +12,20 @@ class ColorGenerators():
         'MAGENTA' : 300,
     }
 
-    def randColor(self):
+    # returns rgb value
+    def random_color_RGB(self):
         return (random.randint(0,255), random.randint(0,255), random.randint(0,255))
 
-    def genRGBfromHSL(self, hue):
+    # returns random rgb from randomly selected HUE
+    def random_color_hue(self):
+        index = random.randint(0, len(self.HUES)-1)
+        hueKey = list(self.HUES.keys())[index]
+        return self.gen_RGB_from_HSL(self.HUES[hueKey])
+
+    def gen_RGB_from_HSL(self, hue):
         hue = hue
-        saturation = random.randint(40, 100) / 100
-        lightness = random.randint(30, 70) / 100
+        saturation = random.randint(40, 100) / 100  # arbitrary values
+        lightness = random.randint(30, 70) / 100    # arbitrary values
         print(f"Hue: {hue}, Sat: {saturation}, Lght: {lightness}")
         C = (1 - abs(2 * lightness - 1)) * saturation
         X = C * (1 - abs((hue/60)%2-1))
@@ -63,10 +69,3 @@ class ColorGenerators():
                 math.floor(m*255),
                 math.floor(((X + m)*255)),
             )
-
-    def randColorFromHues(self):
-        index = random.randint(0, len(self.HUES)-1)
-        hueKey = list(self.HUES.keys())[index]
-        return self.genRGBfromHSL(self.HUES[hueKey])
-    
-    
